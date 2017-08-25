@@ -1,0 +1,24 @@
+
+Hi there!
+There are two crawlers:
+- One is the afp_simple, which is the one working and having unit tests.
+- There's a second "dynamic" crawler that, starting from quick-search.html, can look up any
+of the elements of the list and crawl that particular resource - it's a proof of concept of
+Oracle APEX automated crawling, so it's NOT complete
+
+INSTALL:
+# assuming you have virtualenv
+mkvirtualenv afp_simple
+pip install -r requirements.txt
+
+TEST:
+python -m unittest discover -s ./tests/ -p 'test_*.py'
+
+RUN:
+scrapy crawl afp_simple -L INFO -t jsonlines -o afp_simple_$(date +%Y-%m-%d:%H:%M:%S).json
+
+NOTES:
+- tested on python 2.7
+- tested on fara.org APEX 4.2
+- for production, loglevel of 404 errors could need to be raised - assuming one wants to know if a site changes
+
